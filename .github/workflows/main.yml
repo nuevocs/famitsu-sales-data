@@ -1,7 +1,9 @@
 name: scrap3
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/60 * * * *' #the schedule, in this case every 30 mins, in cron time (URL CRON)
+
 jobs:
   build:
     runs-on: ubuntu-latest
