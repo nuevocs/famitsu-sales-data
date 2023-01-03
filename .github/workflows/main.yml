@@ -22,20 +22,15 @@ jobs:
        - name: execute py script
          run: python3 main.py #NAME OF YOUR FILE HERE!!
       
-       - name: Check if there is any new translations
-         id: verify_diff
-         run: |
-          npx prettier -w packages/trn/transifex
-          git diff --quiet packages/trn/transifex/en_US.json || echo "::set-output name=new_translations_exist::true"
-      
+    
       
        - name: commit files
-         if: steps.verify_diff.outputs.new_translations_exist == 'true'
+
          run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "update data" -a
+          git commit -m "update data" -a || echo "No changes to commit"
           
        - name: push changes
          uses: ad-m/github-push-action@v0.6.0
